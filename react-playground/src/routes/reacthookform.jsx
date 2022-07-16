@@ -1,13 +1,9 @@
-import { useState } from 'react'
-import reactLogo from '../assets/react.svg'
-
-const RReactHookForm = (props) => {
-  const [count, setCount] = useState(0)
-
+const RReactHookForm = () => {
   return (
-		<h1>React Hook Form testing</h1>
+		<h1>
+			React Hook Form testing
+		</h1>
   )
 }
 
 export default RReactHookForm
-
