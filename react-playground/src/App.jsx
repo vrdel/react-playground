@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { Container, Row, Col, Collapse, Navbar, NavbarBrand, Nav, NavLink, NavItem } from 'reactstrap'
 import reactLogo from './assets/react.svg'
 import './App.css'
 
-function App() {
+const Main = (props) => {
   const [count, setCount] = useState(0)
 
   return (
@@ -29,6 +30,38 @@ function App() {
       </p>
     </div>
   )
+}
+
+function App() {
+	return (
+		<Container fluid>
+			<Row>
+				<Col>
+					<Navbar color="light" expand="md" light>
+						<NavbarBrand href="/">
+							reactstrap
+						</NavbarBrand>
+						<Collapse navbar>
+							<Nav className="me-auto" navbar>
+								<NavItem>
+									<NavLink href="/main">
+										Main VITE component
+									</NavLink>
+								</NavItem>
+							</Nav>
+						</Collapse>
+					</Navbar>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<h1>
+						Foobar
+					</h1>
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default App
