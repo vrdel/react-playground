@@ -1,8 +1,8 @@
 const RReactHookForm = () => {
   return (
-		<h1>
-			React Hook Form testing
-		</h1>
+    <h1>
+      React Hook Form testing
+    </h1>
   )
 }
 

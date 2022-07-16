@@ -12,12 +12,12 @@ import {Link} from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <Navbar color="light" expand="md" light>
+    <Navbar color="secondary" dark expand="md" fixed="top">
       <NavbarBrand tag={Link} to="/">
-        vrdel&aposs play
+        vrdel&apos;s play
       </NavbarBrand>
       <Collapse navbar>
-        <Nav className="me-auto" navbar>
+        <Nav navbar>
           <NavItem>
             <NavLink tag={Link} to="/main-vite">
               Vite
