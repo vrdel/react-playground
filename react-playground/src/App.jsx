@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Container, Row, Col, Collapse, Navbar, NavbarBrand, Nav, NavLink, NavItem } from 'reactstrap'
+import { Link } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import './App.css'
 
@@ -39,13 +40,18 @@ function App() {
 				<Col>
 					<Navbar color="light" expand="md" light>
 						<NavbarBrand href="/">
-							reactstrap
+							vrdel's play
 						</NavbarBrand>
 						<Collapse navbar>
 							<Nav className="me-auto" navbar>
 								<NavItem>
-									<NavLink href="/main">
-										Main VITE component
+									<NavLink tag={Link} to="/main-vite">
+										Main VITE
+									</NavLink>
+								</NavItem>
+								<NavItem>
+									<NavLink tag={Link} to="/react-hook-form">
+										react-hook-form
 									</NavLink>
 								</NavItem>
 							</Nav>
