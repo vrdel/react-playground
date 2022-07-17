@@ -12,18 +12,18 @@ import {Link} from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <Navbar color="secondary" dark expand="md" fixed="top">
+    <Navbar className="fs-4" color="secondary" dark expand="md" fixed="top">
       <NavbarBrand tag={Link} to="/home">
         vrdel&apos;s play
       </NavbarBrand>
       <Collapse navbar>
         <Nav navbar>
-          <NavItem>
+          <NavItem className="fs-5">
             <NavLink tag={Link} to="/main-vite">
               Vite
             </NavLink>
           </NavItem>
-          <NavItem>
+          <NavItem className="fs-5">
             <NavLink tag={Link} to="/react-hook-form">
               react-hook-form
             </NavLink>

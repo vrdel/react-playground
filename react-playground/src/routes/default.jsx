@@ -18,7 +18,11 @@ const RootApp = () => {
       </Row>
       <Row>
         <Col>
-          <Navbar color="secondary" expand="md" fixed="bottom"/>
+          <Navbar color="secondary" dark expand="md" fixed="bottom">
+            <p className="fs-5 text-white position-relative start-50">
+              Footer
+            </p>
+          </Navbar>
         </Col>
       </Row>
     </Container>
