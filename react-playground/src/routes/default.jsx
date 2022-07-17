@@ -1,11 +1,23 @@
 import React from 'react';
+import Navigation from '../ui/navigation'
+import { Container, Row, Col } from 'reactstrap'
+import { Outlet } from 'react-router-dom'
 
-function Home() {
+const RootApp = () => {
   return (
-    <h1>
-      I&apos;m home page
-    </h1>
+    <Container>
+      <Row>
+        <Col>
+          <Navigation/>
+        </Col>
+      </Row>
+      <Row className="no-gutters">
+        <Col>
+          <Outlet />
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
-export default Home
+export default RootApp

@@ -1,8 +1,13 @@
+import React from 'react';
+
+
 const RReactHookForm = () => {
   return (
-    <h1>
-      React Hook Form testing
-    </h1>
+    <main>
+      <h1>
+        React Hook Form testing
+      </h1>
+    </main>
   )
 }
 
