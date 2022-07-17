@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import reactLogo from '../assets/react.svg'
 
 
-const RMainVite = () => {
+const MainVite = () => {
   const [count, setCount] = useState(0)
 
   return (
@@ -32,4 +32,4 @@ const RMainVite = () => {
 }
 
 
-export default RMainVite
+export default MainVite

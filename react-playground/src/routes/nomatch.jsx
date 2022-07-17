@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RNoMatch() {
+function NoMatch() {
   return (
     <h1>
       Nothing here
@@ -8,4 +8,4 @@ function RNoMatch() {
   )
 }
 
-export default RNoMatch
+export default NoMatch

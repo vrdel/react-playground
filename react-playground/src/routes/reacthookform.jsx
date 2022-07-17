@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const RReactHookForm = () => {
+const ReactHookForm = () => {
   return (
     <main>
       <h1>
@@ -11,4 +11,4 @@ const RReactHookForm = () => {
   )
 }
 
-export default RReactHookForm
+export default ReactHookForm

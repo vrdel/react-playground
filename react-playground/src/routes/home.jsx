@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const RHome = () => {
+const Home = () => {
   return (
     <main>
       <h1>
@@ -11,5 +11,4 @@ const RHome = () => {
   )
 }
 
-export default RHome
-
+export default Home
