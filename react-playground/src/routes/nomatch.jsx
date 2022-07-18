@@ -1,10 +1,15 @@
 import React from 'react';
+import DocumentTitle from '../ui/headtitle'
 
-function NoMatch() {
+
+const NoMatch = () => {
   return (
-    <h1>
-      Nothing here
-    </h1>
+    <main>
+      <DocumentTitle/>
+      <h1>
+        Nothing here
+      </h1>
+    </main>
   )
 }
 

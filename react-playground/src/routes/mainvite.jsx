@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import reactLogo from '../assets/react.svg'
+import DocumentTitle from '../ui/headtitle'
 
 
 const MainVite = () => {
@@ -7,6 +8,7 @@ const MainVite = () => {
 
   return (
     <div className="App">
+      <DocumentTitle/>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
