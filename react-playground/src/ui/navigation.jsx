@@ -12,7 +12,7 @@ import {Link} from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <Navbar className="fs-4" color="secondary" dark expand="md" fixed="top">
+    <Navbar className="fs-4" color="primary" dark expand="md" fixed="top">
       <NavbarBrand tag={Link} to="/home">
         vrdel&apos;s play
       </NavbarBrand>
