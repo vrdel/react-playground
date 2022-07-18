@@ -3,11 +3,18 @@ import Navigation from '../ui/navigation'
 import Footer from '../ui/footer'
 import { Container, Row, Col } from 'reactstrap'
 import { Outlet } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+
 
 const RootApp = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>
+          { `${ location.pathname } | vrdel play` }
+        </title>
+      </Helmet>
       <Row>
         <Col>
           <Navigation/>
