@@ -1,13 +1,10 @@
 import React from 'react';
 import Navigation from '../ui/navigation'
-import { Container, Row, Col, Navbar } from 'reactstrap'
+import Footer from '../ui/footer'
+import { Container, Row, Col } from 'reactstrap'
 import { Outlet } from 'react-router-dom'
 
 const RootApp = () => {
-  let dateObj = new Date()
-  let year = new Intl.DateTimeFormat('hr-HR', {year: 'numeric'}).format(dateObj)
-  let month = new Intl.DateTimeFormat('hr-HR', {month: 'numeric'}).format(dateObj)
-  let day = new Intl.DateTimeFormat('hr-HR', {day: 'numeric'}).format(dateObj)
 
   return (
     <Container>
@@ -23,14 +20,7 @@ const RootApp = () => {
       </Row>
       <Row>
         <Col>
-          <Navbar color="light" expand="md" fixed="bottom">
-            <p className="fs-5 fst-italic position-relative start-50">
-              {day}{month}{year}
-            </p>
-            <p className="fs-6 fst-italic position-relative end-0">
-              dvrcic
-            </p>
-          </Navbar>
+          <Footer/>
         </Col>
       </Row>
     </Container>
