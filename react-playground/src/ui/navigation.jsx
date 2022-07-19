@@ -19,11 +19,6 @@ const Navigation = () => {
       <Collapse navbar>
         <Nav navbar>
           <NavItem className="fs-5">
-            <NavLink tag={Link} to="/main-vite">
-              Vite
-            </NavLink>
-          </NavItem>
-          <NavItem className="fs-5">
             <NavLink tag={Link} to="/react-hook-form">
               react-hook-form
             </NavLink>
