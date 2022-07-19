@@ -8,15 +8,15 @@ import { Outlet } from 'react-router-dom'
 const RootApp = () => {
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col>
           <Navigation/>
         </Col>
       </Row>
-      <Row className="no-gutters">
-        <Col>
-          <Outlet />
+      <Row className="pt-5">
+        <Col className="pt-4">
+          <Outlet/>
         </Col>
       </Row>
       <Row>
