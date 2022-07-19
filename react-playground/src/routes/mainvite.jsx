@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import reactLogo from '../assets/react.svg'
-import DocumentTitle from '../ui/headtitle'
+import HeadTitle from '../ui/headtitle'
 import { Row, Col } from 'reactstrap'
 
 
@@ -19,7 +19,7 @@ const MainVite = () => {
       <Row className="d-flex">
         <Col className="justify-content-center">
           <div className="App">
-            <DocumentTitle/>
+            <HeadTitle/>
             <div>
               <a href="https://vitejs.dev" target="_blank">
                 <img src="/vite.svg" className="logo" alt="Vite logo" />

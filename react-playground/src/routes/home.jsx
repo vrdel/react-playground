@@ -1,15 +1,16 @@
 import React from 'react';
-import DocumentTitle from '../ui/headtitle'
+import DefaultPage from '../ui/defpage'
 
 
 const Home = () => {
   return (
-    <main>
-      <DocumentTitle/>
-      <h1>
-        I&apos;m home
-      </h1>
-    </main>
+    <>
+      <DefaultPage title="Home page">
+        <h2>
+          I&apos;m home
+        </h2>
+      </DefaultPage>
+    </>
   )
 }
 

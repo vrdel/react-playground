@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
 
-const DocumentTitle = () => {
+const HeadTitle = () => {
   return (
     <Helmet>
       <title>
@@ -12,4 +12,4 @@ const DocumentTitle = () => {
   )
 }
 
-export default DocumentTitle
+export default HeadTitle

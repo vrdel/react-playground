@@ -1,11 +1,11 @@
 import React from 'react';
-import DocumentTitle from '../ui/headtitle'
+import HeadTitle from '../ui/headtitle'
 
 
 const NoMatch = () => {
   return (
     <main>
-      <DocumentTitle/>
+      <HeadTitle/>
       <h1>
         Nothing here
       </h1>
