@@ -1,15 +1,16 @@
 import React from 'react';
-import HeadTitle from '../ui/headtitle'
+import DefaultPage from '../ui/defpage'
 
 
 const NoMatch = () => {
   return (
-    <main>
-      <HeadTitle/>
-      <h1>
-        Nothing here
-      </h1>
-    </main>
+    <>
+      <DefaultPage title="Nothing here">
+        <h2>
+          Oops...
+        </h2>
+      </DefaultPage>
+    </>
   )
 }
 
