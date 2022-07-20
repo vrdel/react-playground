@@ -10,13 +10,13 @@ const DefaultPage = ({title, children}) => {
       { title &&
         <Row>
           <Col>
-            <h1 className="bg-light p-1 rounded border-bottom">
+            <h3 className="bg-light p-1 rounded border-bottom">
               { title }
-            </h1>
+            </h3>
           </Col>
         </Row>
       }
-      <Row>
+      <Row className="pt-3">
         <Col>
           { children }
         </Col>
