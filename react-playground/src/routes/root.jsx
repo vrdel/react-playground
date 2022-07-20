@@ -6,7 +6,6 @@ import { Outlet } from 'react-router-dom'
 
 
 const RootApp = () => {
-
   return (
     <Container fluid className="d-flex flex-column h-100">
       <Row>

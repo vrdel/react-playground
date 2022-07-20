@@ -1,7 +1,7 @@
 import './App.css'
 
 import React from 'react'
-import RootApp from './routes/default'
+import RootApp from './routes/root'
 import Home from './routes/home'
 import ReactHookForm from './routes/reacthookform'
 import NoMatch from './routes/nomatch'
