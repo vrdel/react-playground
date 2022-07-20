@@ -18,8 +18,8 @@ const RootApp = () => {
           <Outlet/>
         </Col>
       </Row>
-      <Row className="mt-auto">
-        <Col>
+      <Row className="mt-auto border-top">
+        <Col className="bg-secondary bg-opacity-10">
           <Footer/>
         </Col>
       </Row>

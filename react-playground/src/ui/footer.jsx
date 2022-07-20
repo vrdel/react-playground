@@ -9,15 +9,15 @@ const Footer = () => {
   let day = new Intl.DateTimeFormat('hr-HR', {day: 'numeric'}).format(dateObj)
 
   return (
-    <Navbar className="bg-secondary bg-opacity-10" expand="md">
+    <Navbar expand="md">
       <Nav>
-        <NavbarText className="fs-6 fst-italic">
+        <NavbarText className="fs-6 fst-italic font-monospace">
           {day}{month}{year}
         </NavbarText>
       </Nav>
       <Nav>
-        <NavbarText className="fs-6 fst-italic">
-          dvrcic
+        <NavbarText className="fs-6 fst-italic font-monospace">
+            dvrcic
         </NavbarText>
       </Nav>
     </Navbar>

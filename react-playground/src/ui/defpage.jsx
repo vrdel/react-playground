@@ -10,7 +10,7 @@ const DefaultPage = ({title, children}) => {
       { title &&
         <Row>
           <Col>
-            <h1 className="bg-light p-1 rounded">
+            <h1 className="bg-light p-1 rounded border-bottom">
               { title }
             </h1>
           </Col>
