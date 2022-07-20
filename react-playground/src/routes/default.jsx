@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom'
 const RootApp = () => {
 
   return (
-    <Container fluid>
+    <Container fluid className="d-flex flex-column h-100">
       <Row>
         <Col>
           <Navigation/>
@@ -19,7 +19,7 @@ const RootApp = () => {
           <Outlet/>
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-auto">
         <Col>
           <Footer/>
         </Col>
