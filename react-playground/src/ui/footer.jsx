@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from 'reactstrap'
+import { Navbar, Nav, NavbarText } from 'reactstrap'
 
 
 const Footer = () => {
@@ -9,13 +9,17 @@ const Footer = () => {
   let day = new Intl.DateTimeFormat('hr-HR', {day: 'numeric'}).format(dateObj)
 
   return (
-    <Navbar color="light" expand="md" fixed="bottom">
-      <p className="fs-6 fst-italic position-relative start-50">
-        {day}{month}{year}
-      </p>
-      <p className="fs-6 fst-italic position-relative end-0">
-        dvrcic
-      </p>
+    <Navbar className="bg-secondary bg-opacity-10" expand="md" fixed="bottom">
+      <Nav>
+        <NavbarText className="fs-6 fst-italic">
+          {day}{month}{year}
+        </NavbarText>
+      </Nav>
+      <Nav>
+        <NavbarText className="fs-6 fst-italic">
+          dvrcic
+        </NavbarText>
+      </Nav>
     </Navbar>
   )
 }
