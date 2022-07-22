@@ -27,49 +27,57 @@ const TestForm1 = () => {
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <Row>
-      <Col>
-        <Form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
-          <FormGroup>
-            {/* register your input into the hook by invoking the "register" function */}
-            <Label for="f1">
-              Field1
-            </Label>
-            <InputGroup>
-              <Input
-                id="f1"
-                className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
-                defaultValue="test"
-                innerRef={ref1} {...exampleField}
-              />
-              { errors.example &&
-                <FormFeedback invalid>
-                  Needs text
-                </FormFeedback>
-              }
-            </InputGroup>
-            <Label className="mt-2" for="f2">
-              Field2
-            </Label>
-            <InputGroup>
-              <Input
-                id="f2"
-                className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
-                innerRef={ref2} {...exampleFieldRequired}
-              />
-              { errors.exampleRequired &&
-                <FormFeedback invalid>
-                  Needs text
-                </FormFeedback>
-              }
-            </InputGroup>
-            <Button className="mt-3" type="submit">
-              Submit
-            </Button>
-          </FormGroup>
-        </Form>
-      </Col>
-    </Row>
+      <Form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
+        <FormGroup>
+          {/* register your input into the hook by invoking the "register" function */}
+          <Row>
+            <Col>
+              <Label for="f1">
+                Field1
+              </Label>
+              <InputGroup>
+                <Input
+                  id="f1"
+                  className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
+                  defaultValue="test"
+                  innerRef={ref1} {...exampleField}
+                />
+                { errors.example &&
+                  <FormFeedback invalid>
+                    Needs text
+                  </FormFeedback>
+                }
+              </InputGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Label className="mt-2" for="f2">
+                Field2
+              </Label>
+              <InputGroup>
+                <Input
+                  id="f2"
+                  className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
+                  innerRef={ref2} {...exampleFieldRequired}
+                />
+                { errors.exampleRequired &&
+                  <FormFeedback invalid>
+                    Needs text
+                  </FormFeedback>
+                }
+              </InputGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-center">
+              <Button className="mt-3" type="submit">
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </FormGroup>
+      </Form>
   );
 }
 
