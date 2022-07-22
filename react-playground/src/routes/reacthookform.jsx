@@ -35,16 +35,18 @@ const TestForm1 = () => {
             <Label for="f1">
               Field1
             </Label>
-            <Input id="f1" className="is-invalid form-control" defaultValue="test" innerRef={ref1} {...exampleField} />
+            <Input id="f1" className="is-valid form-control" defaultValue="test" innerRef={ref1} {...exampleField} />
             {/* include validation with required or other standard HTML validation rules */}
             <Label className="mt-2" for="f2">
               Field2
             </Label>
             <InputGroup>
-              <Input id="f2" className="is-invalid form-control" innerRef={ref2} {...exampleFieldRequired} />
-              <FormFeedback invalid tooltip>
-                Needs text
-              </FormFeedback>
+              <Input id="f2" className={`form-control ${errors.exampleRequired ? "is-invalid" : ''}`} innerRef={ref2} {...exampleFieldRequired} />
+              { errors.exampleRequired &&
+                <FormFeedback invalid tooltip>
+                  Needs text
+                </FormFeedback>
+              }
             </InputGroup>
             <Button className="mt-3" type="submit">
               Submit
