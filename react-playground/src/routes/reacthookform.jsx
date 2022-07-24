@@ -19,6 +19,7 @@ import {
   Row,
 } from 'reactstrap'
 import { useForm, Controller } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const ToastMsg = ({ data, isopen, setOpen }) => {
   return (
@@ -34,6 +35,20 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
     </Toast>
   )
 }
+
+
+const TestForm3 = () => {
+  return (
+    <Row>
+      <Col className="text-center">
+        <Button className="mt-3" onClick={() => toast('Showed me')}>
+          Show me
+        </Button>
+      </Col>
+    </Row>
+  );
+}
+
 
 const TestForm2 = ({ setData, setToggle }) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -213,6 +228,16 @@ const ReactHookForm = () => {
                   </p>
                 </CardTitle>
                 <TestForm2 setData={setSubmitData} setToggle={setToggle}/>
+              </CardBody>
+            </Col>
+            <Col sm="4">
+              <CardBody>
+                <CardTitle>
+                  <p className="font-monospace">
+                    react-tostify
+                  </p>
+                </CardTitle>
+                <TestForm3/>
               </CardBody>
             </Col>
           </Row>

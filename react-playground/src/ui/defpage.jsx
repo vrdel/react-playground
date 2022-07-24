@@ -1,11 +1,14 @@
 import React from 'react'
 import HeadTitle from './headtitle'
 import { Row, Col } from 'reactstrap'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const DefaultPage = ({title, children}) => {
   return (
     <>
+      <ToastContainer/>
       <HeadTitle/>
       { title &&
         <Row>
