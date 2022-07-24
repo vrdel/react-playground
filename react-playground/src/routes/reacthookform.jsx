@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DefaultPage from '../ui/defpage'
 import {
   Button,
@@ -12,20 +12,40 @@ import {
   FormGroup,
   Input,
   InputGroup,
+  Toast,
+  ToastHeader,
+  ToastBody,
   Label,
   Row,
 } from 'reactstrap'
 import { useForm, Controller } from "react-hook-form";
 
+const ToastMsg = ({ data, isopen, setOpen }) => {
+  return (
+    <Toast isOpen={isopen}>
+      <ToastHeader icon="success" toggle={() => setOpen(!isopen)}>
+        Submitting...
+      </ToastHeader>
+      <ToastBody className="font-monospace">
+        {
+          JSON.stringify(data, null, 2)
+        }
+      </ToastBody>
+    </Toast>
+  )
+}
 
-const TestForm2 = () => {
+const TestForm2 = ({ setData, setToggle }) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       f1: 'test',
       f2: ''
     }
   });
-  const onSubmit = data => console.log(data, errors);
+  const onSubmit = data => {
+    setData(data)
+    setToggle(true)
+  }
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -159,8 +179,16 @@ const TestForm1 = () => {
 }
 
 const ReactHookForm = () => {
+  const [toggle, setToggle] = useState(false)
+  const [submitData, setSubmitData] = useState(undefined)
+
   return (
     <>
+      <Row className="fixed-top mt-5 pt-3" style={{zIndex: '15'}}>
+        <Col sm={{size:3, offset: 9}}>
+          <ToastMsg className="p-3" data={submitData} isopen={toggle} setOpen={setToggle}/>
+        </Col>
+      </Row>
       <DefaultPage title="React Hook Form testing">
         <Card>
           <CardHeader>
@@ -184,7 +212,7 @@ const ReactHookForm = () => {
                     useController()
                   </p>
                 </CardTitle>
-                <TestForm2/>
+                <TestForm2 setData={setSubmitData} setToggle={setToggle}/>
               </CardBody>
             </Col>
           </Row>
