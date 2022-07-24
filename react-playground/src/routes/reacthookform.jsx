@@ -15,15 +15,17 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 
 const TestForm2 = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-
-  const {ref: ref1, ...exampleField} = register("example", {required: true})
-  const {ref: ref2, ...exampleFieldRequired} = register("exampleRequired", {required: true} )
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      f1: 'test',
+      f2: ''
+    }
+  });
+  const onSubmit = data => console.log(data, errors);
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -36,17 +38,16 @@ const TestForm2 = () => {
               Field1
             </Label>
             <InputGroup>
-              <Input
-                id="f1"
-                className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
-                defaultValue="test"
-                innerRef={ref1} {...exampleField}
+              <Controller
+                name="f1"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
+                  />
+                }
               />
-              { errors.example &&
-                <FormFeedback invalid>
-                  Needs text
-                </FormFeedback>
-              }
             </InputGroup>
           </Col>
         </Row>
@@ -56,16 +57,17 @@ const TestForm2 = () => {
               Field2
             </Label>
             <InputGroup>
-              <Input
-                id="f2"
-                className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
-                innerRef={ref2} {...exampleFieldRequired}
+              <Controller
+                name="f2"
+                control={control}
+                rules={{required: true}}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
+                  />
+                }
               />
-              { errors.exampleRequired &&
-                <FormFeedback invalid>
-                  Needs text
-                </FormFeedback>
-              }
             </InputGroup>
           </Col>
         </Row>
