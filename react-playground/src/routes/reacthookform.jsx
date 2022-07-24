@@ -41,13 +41,19 @@ const TestForm2 = () => {
               <Controller
                 name="f1"
                 control={control}
+                rules={{required: true}}
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.f1 ? "is-invalid" : "is-valid"}`}
                   />
                 }
               />
+              { errors.f1 &&
+                <FormFeedback tooltip invalid>
+                  Needs text
+                </FormFeedback>
+              }
             </InputGroup>
           </Col>
         </Row>
@@ -64,10 +70,15 @@ const TestForm2 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.f2 ? "is-invalid" : "is-valid"}`}
                   />
                 }
               />
+              { errors.f2 &&
+                <FormFeedback tooltip invalid>
+                  Needs text
+                </FormFeedback>
+              }
             </InputGroup>
           </Col>
         </Row>
