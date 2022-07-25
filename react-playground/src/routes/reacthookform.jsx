@@ -21,6 +21,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { toast } from 'react-toastify';
 
+
 const ToastMsg = ({ data, isopen, setOpen }) => {
   return (
     <Toast isOpen={isopen}>
@@ -41,7 +42,7 @@ const TestForm3 = () => {
   return (
     <Row>
       <Col className="text-center">
-        <Button className="mt-3" onClick={() => toast('Showed me')}>
+        <Button className="mt-3" onClick={() => toast.success('Showed me')}>
           Show me
         </Button>
       </Col>
@@ -132,7 +133,13 @@ const TestForm2 = ({ setData, setToggle }) => {
 
 const TestForm1 = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    toast.success(
+      <p className="font-monospace">
+        { JSON.stringify(data, null, 2) }
+      </p>
+    )
+  }
 
   const {ref: ref1, ...exampleField} = register("example", {required: true})
   const {ref: ref2, ...exampleFieldRequired} = register("exampleRequired", {required: true} )
@@ -200,7 +207,7 @@ const ReactHookForm = () => {
   return (
     <>
       <Row className="fixed-top mt-5 pt-3" style={{zIndex: '15'}}>
-        <Col sm={{size:3, offset: 9}}>
+        <Col xl={{size:3, offset: 9}} className="d-flex justify-content-end">
           <ToastMsg className="p-3" data={submitData} isopen={toggle} setOpen={setToggle}/>
         </Col>
       </Row>
@@ -214,7 +221,7 @@ const ReactHookForm = () => {
               <CardBody>
                 <CardTitle>
                   <p className="font-monospace">
-                    useForm()
+                    useForm() & react-toastify
                   </p>
                 </CardTitle>
                 <TestForm1/>
@@ -224,7 +231,7 @@ const ReactHookForm = () => {
               <CardBody>
                 <CardTitle>
                   <p className="font-monospace">
-                    useController()
+                    Controller & reactstrap Toast
                   </p>
                 </CardTitle>
                 <TestForm2 setData={setSubmitData} setToggle={setToggle}/>
