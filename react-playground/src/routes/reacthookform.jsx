@@ -82,7 +82,7 @@ const TestForm4 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.firstname ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.firstname && "is-invalid"}`}
                   />
                 }
               />
@@ -106,7 +106,7 @@ const TestForm4 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.lastname ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.lastname && "is-invalid"}`}
                   />
                 }
               />
@@ -130,7 +130,7 @@ const TestForm4 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.age ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.age && "is-invalid"}`}
                   />
                 }
               />
@@ -154,7 +154,7 @@ const TestForm4 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.email ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.email && "is-invalid"}`}
                   />
                 }
               />
@@ -178,7 +178,7 @@ const TestForm4 = () => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.web ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.web && "is-invalid"}`}
                   />
                 }
               />
@@ -246,7 +246,7 @@ const TestForm2 = ({ setData, setToggle }) => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.f1 ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.f1 && "is-invalid"}`}
                   />
                 }
               />
@@ -271,7 +271,7 @@ const TestForm2 = ({ setData, setToggle }) => {
                 render={ ({field}) =>
                   <Input
                     {...field}
-                    className={`form-control ${errors.f2 ? "is-invalid" : "is-valid"}`}
+                    className={`form-control ${errors.f2 && "is-invalid"}`}
                   />
                 }
               />
@@ -322,7 +322,7 @@ const TestForm1 = () => {
             <InputGroup>
               <Input
                 id="f1"
-                className={`form-control ${errors.example ? "is-invalid" : "is-valid"}`}
+                className={`form-control ${errors.example && "is-invalid"}`}
                 defaultValue="test"
                 innerRef={ref1} {...exampleField}
               />
@@ -342,7 +342,7 @@ const TestForm1 = () => {
             <InputGroup>
               <Input
                 id="f2"
-                className={`form-control ${errors.exampleRequired ? "is-invalid" : "is-valid"}`}
+                className={`form-control ${errors.exampleRequired && "is-invalid"}`}
                 innerRef={ref2} {...exampleFieldRequired}
               />
               { errors.exampleRequired &&
