@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DefaultPage from '../ui/defpage'
 import {
+  ButtonGroup,
   Button,
   Card,
   CardBody,
@@ -18,7 +19,7 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '@hookform/error-message';
@@ -40,6 +41,108 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
     </Toast>
   )
 }
+
+
+const TestForm5 = () => {
+  const { control, handleSubmit, formState: {errors} } = useForm({
+    defaultValues: {
+      names: [{firstname: 'Daniel', lastname: 'Vrcic'}]
+    }
+  })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "names",
+  });
+
+  const onSubmit = data => {
+    toast.success(
+      <p className="font-monospace">
+        { JSON.stringify(data, null, 2) }
+      </p>
+    )
+  }
+
+  console.log(fields)
+
+  return (
+    <>
+      <Label for="firstname">
+        Array of names
+      </Label>
+      <Form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
+        <FormGroup>
+          {
+            fields.map((item, index) => (
+              <Row key={item.id}>
+                <Col key={item.id} sm={{size: 10}}>
+                  <InputGroup>
+                    <Controller
+                      name={`names.${index}.firstname`}
+                      control={control}
+                      render={ ({field}) =>
+                        <Input
+                          {...field}
+                          className={`form-control ${errors.index?.firstname && "is-invalid"}`}
+                        />
+                      }
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name={`names.${index}.firstname`}
+                      render={({ message }) =>
+                        <FormFeedback tooltip invalid className="end-0">
+                          { message }
+                        </FormFeedback>
+                      }
+                    />
+                    <Controller
+                      name={`names.${index}.lastname`}
+                      control={control}
+                      render={ ({field}) =>
+                        <Input
+                          {...field}
+                          className={`pl-2 form-control ${errors.index?.lastname && "is-invalid"}`}
+                        />
+                      }
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name={`names.${index}.lastname`}
+                      render={({ message }) =>
+                        <FormFeedback tooltip invalid className="end-0">
+                          { message }
+                        </FormFeedback>
+                      }
+                    />
+                  </InputGroup>
+                </Col>
+                <Col className="d-flex align-items-center">
+                  <ButtonGroup size='sm'>
+                    <Button className="fw-bold" color="success" onClick={() => append({firstname: '', lastname: ''})}>
+                      +
+                    </Button>
+                    <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
+                      -
+                    </Button>
+                  </ButtonGroup>
+                </Col>
+              </Row>
+            ))
+          }
+          <Row className='mt-2'>
+            <Col className="text-center">
+              <Button className="mt-3" color="success" type="submit">
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </FormGroup>
+      </Form>
+    </>
+  );
+}
+
 
 const schema = yup.object().shape({
   firstname: yup.string().required(),
@@ -386,6 +489,7 @@ const TestForm1 = () => {
   );
 }
 
+
 const ReactHookForm = () => {
   const [toggle, setToggle] = useState(false)
   const [submitData, setSubmitData] = useState(undefined)
@@ -441,6 +545,16 @@ const ReactHookForm = () => {
                   </p>
                 </CardTitle>
                 <TestForm4/>
+              </CardBody>
+            </Col>
+            <Col sm="8">
+              <CardBody>
+                <CardTitle className="bg-secondary text-center text-white">
+                  <p className="font-monospace">
+                    FieldArray
+                  </p>
+                </CardTitle>
+                <TestForm5/>
               </CardBody>
             </Col>
           </Row>
