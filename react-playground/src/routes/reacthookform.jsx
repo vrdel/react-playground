@@ -42,9 +42,14 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
   )
 }
 
+const schema2 = yup.array().of({
+  firstname: yup.string().required(),
+  lastname: yup.string().required(),
+}).required();
 
 const TestForm5 = () => {
   const { control, handleSubmit, formState: {errors} } = useForm({
+    resolver: yupResolver(schema2),
     defaultValues: {
       names: [{firstname: 'Daniel', lastname: 'Vrcic'}]
     }
@@ -63,7 +68,7 @@ const TestForm5 = () => {
     )
   }
 
-  console.log(fields)
+  console.log(errors)
 
   return (
     <>
@@ -74,8 +79,8 @@ const TestForm5 = () => {
         <FormGroup>
           {
             fields.map((item, index) => (
-              <Row key={item.id}>
-                <Col key={item.id} sm={{size: 10}}>
+              <Row key={item.id} className="pt-2">
+                <Col sm={{size: 5}}>
                   <InputGroup>
                     <Controller
                       name={`names.${index}.firstname`}
@@ -83,7 +88,7 @@ const TestForm5 = () => {
                       render={ ({field}) =>
                         <Input
                           {...field}
-                          className={`form-control ${errors.index?.firstname && "is-invalid"}`}
+                          className={`form-control ${errors.names && errors.names.index && errors.names.index.firstname ? "is-invalid" : ''}`}
                         />
                       }
                     />
@@ -96,13 +101,17 @@ const TestForm5 = () => {
                         </FormFeedback>
                       }
                     />
+                  </InputGroup>
+                </Col>
+                <Col sm={{size: 5}}>
+                  <InputGroup>
                     <Controller
                       name={`names.${index}.lastname`}
                       control={control}
                       render={ ({field}) =>
                         <Input
                           {...field}
-                          className={`pl-2 form-control ${errors.index?.lastname && "is-invalid"}`}
+                          className={`${errors?.names?.index?.lastname ? "is-invalid" : ''}`}
                         />
                       }
                     />
@@ -117,7 +126,7 @@ const TestForm5 = () => {
                     />
                   </InputGroup>
                 </Col>
-                <Col className="d-flex align-items-center">
+                <Col sm={{size: 2}} className="d-flex align-items-center">
                   <ButtonGroup size='sm'>
                     <Button className="fw-bold" color="success" onClick={() => append({firstname: '', lastname: ''})}>
                       +
