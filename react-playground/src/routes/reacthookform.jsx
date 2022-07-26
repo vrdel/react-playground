@@ -20,6 +20,9 @@ import {
 } from 'reactstrap'
 import { useForm, Controller } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 
 
 const ToastMsg = ({ data, isopen, setOpen }) => {
@@ -37,12 +40,174 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
   )
 }
 
+const schema = yup.object().shape({
+  firstname: yup.string().required(),
+  lastname: yup.string().required(),
+  age: yup.number().positive().required(),
+  email: yup.string().email().required(),
+  web: yup.string().url().required(),
+}).required();
+
+const TestForm4 = () => {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      age: '',
+      firstname: '',
+      lastname: '',
+      email: '',
+    }
+  });
+  const onSubmit = data => {
+    toast.success(
+      <p className="font-monospace">
+        { JSON.stringify(data, null, 2) }
+      </p>
+    )
+  }
+
+  return (
+    <Form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
+      <FormGroup>
+        {/* register your input into the hook by invoking the "register" function */}
+        <Row>
+          <Col sm={{size: 10}}>
+            <Label for="firstname">
+              First name:
+            </Label>
+            <InputGroup>
+              <Controller
+                name="firstname"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.firstname ? "is-invalid" : "is-valid"}`}
+                  />
+                }
+              />
+              { errors.firstname &&
+                <FormFeedback tooltip invalid className="end-0">
+                  Need first name
+                </FormFeedback>
+              }
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col sm={{size: 10}}>
+            <Label for="lastname">
+              Last name:
+            </Label>
+            <InputGroup>
+              <Controller
+                name="lastname"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.lastname ? "is-invalid" : "is-valid"}`}
+                  />
+                }
+              />
+              { errors.lastname &&
+                <FormFeedback tooltip invalid className="end-0">
+                  Need last name
+                </FormFeedback>
+              }
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col sm={{size: 4}}>
+            <Label for="age">
+              Age:
+            </Label>
+            <InputGroup>
+              <Controller
+                name="age"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.age ? "is-invalid" : "is-valid"}`}
+                  />
+                }
+              />
+              { errors.age &&
+                <FormFeedback invalid>
+                  Need age
+                </FormFeedback>
+              }
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col sm={{size: 8}}>
+            <Label for="email">
+              Email:
+            </Label>
+            <InputGroup>
+              <Controller
+                name="email"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.email ? "is-invalid" : "is-valid"}`}
+                  />
+                }
+              />
+              { errors.email &&
+                <FormFeedback invalid className="end-0">
+                  Need email
+                </FormFeedback>
+              }
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col sm={{size: 8}}>
+            <Label for="web">
+              Web:
+            </Label>
+            <InputGroup>
+              <Controller
+                name="web"
+                control={control}
+                render={ ({field}) =>
+                  <Input
+                    {...field}
+                    className={`form-control ${errors.web ? "is-invalid" : "is-valid"}`}
+                  />
+                }
+              />
+              { errors.web &&
+                <FormFeedback invalid className="end-0">
+                  Need web URL
+                </FormFeedback>
+              }
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className='mt-2'>
+          <Col className="text-center">
+            <Button className="mt-3" color="success" type="submit">
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      </FormGroup>
+    </Form>
+  );
+}
+
 
 const TestForm3 = () => {
   return (
     <Row>
       <Col className="text-center">
-        <Button className="mt-3" onClick={() => toast.success('Showed me')}>
+        <Button className="mt-3" color="success" onClick={() => toast.success('Showed me')}>
           Show me
         </Button>
       </Col>
@@ -120,7 +285,7 @@ const TestForm2 = ({ setData, setToggle }) => {
         </Row>
         <Row>
           <Col className="text-center">
-            <Button className="mt-3" type="submit">
+            <Button className="mt-3" color="success" type="submit">
               Submit
             </Button>
           </Col>
@@ -190,7 +355,7 @@ const TestForm1 = () => {
         </Row>
         <Row>
           <Col className="text-center">
-            <Button className="mt-3" type="submit">
+            <Button className="mt-3" color="success" type="submit">
               Submit
             </Button>
           </Col>
@@ -219,7 +384,7 @@ const ReactHookForm = () => {
           <Row>
             <Col sm="4">
               <CardBody>
-                <CardTitle>
+                <CardTitle className="bg-secondary text-center text-white">
                   <p className="font-monospace">
                     useForm() & react-toastify
                   </p>
@@ -229,7 +394,7 @@ const ReactHookForm = () => {
             </Col>
             <Col sm="4">
               <CardBody>
-                <CardTitle>
+                <CardTitle className="bg-secondary text-center text-white">
                   <p className="font-monospace">
                     Controller & reactstrap Toast
                   </p>
@@ -239,12 +404,22 @@ const ReactHookForm = () => {
             </Col>
             <Col sm="4">
               <CardBody>
-                <CardTitle>
+                <CardTitle className="bg-secondary text-center text-white">
                   <p className="font-monospace">
-                    react-tostify
+                    react-toastify
                   </p>
                 </CardTitle>
                 <TestForm3/>
+              </CardBody>
+            </Col>
+            <Col sm="4">
+              <CardBody>
+                <CardTitle className="bg-secondary text-center text-white">
+                  <p className="font-monospace">
+                    Yup
+                  </p>
+                </CardTitle>
+                <TestForm4/>
               </CardBody>
             </Col>
           </Row>
