@@ -21,6 +21,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ErrorMessage } from '@hookform/error-message';
 import * as yup from "yup";
 
 
@@ -86,11 +87,15 @@ const TestForm4 = () => {
                   />
                 }
               />
-              { errors.firstname &&
-                <FormFeedback tooltip invalid className="end-0">
-                  Need first name
-                </FormFeedback>
-              }
+              <ErrorMessage
+                errors={errors}
+                name="firstname"
+                render={({ message }) =>
+                  <FormFeedback tooltip invalid className="end-0">
+                    { message }
+                  </FormFeedback>
+                }
+              />
             </InputGroup>
           </Col>
         </Row>
@@ -110,11 +115,15 @@ const TestForm4 = () => {
                   />
                 }
               />
-              { errors.lastname &&
-                <FormFeedback tooltip invalid className="end-0">
-                  Need last name
-                </FormFeedback>
-              }
+              <ErrorMessage
+                errors={errors}
+                name="lastname"
+                render={({ message }) =>
+                  <FormFeedback tooltip invalid className="end-0">
+                    { message }
+                  </FormFeedback>
+                }
+              />
             </InputGroup>
           </Col>
         </Row>
@@ -134,11 +143,15 @@ const TestForm4 = () => {
                   />
                 }
               />
-              { errors.age &&
-                <FormFeedback invalid>
-                  Need age
-                </FormFeedback>
-              }
+              <ErrorMessage
+                errors={errors}
+                name="age"
+                render={({ message }) =>
+                  <FormFeedback invalid className="end-0">
+                    Positive number
+                  </FormFeedback>
+                }
+              />
             </InputGroup>
           </Col>
         </Row>
@@ -158,11 +171,15 @@ const TestForm4 = () => {
                   />
                 }
               />
-              { errors.email &&
-                <FormFeedback invalid className="end-0">
-                  Need email
-                </FormFeedback>
-              }
+              <ErrorMessage
+                errors={errors}
+                name="email"
+                render={({ message }) =>
+                  <FormFeedback invalid className="end-0">
+                    { message }
+                  </FormFeedback>
+                }
+              />
             </InputGroup>
           </Col>
         </Row>
@@ -182,11 +199,15 @@ const TestForm4 = () => {
                   />
                 }
               />
-              { errors.web &&
-                <FormFeedback invalid className="end-0">
-                  Need web URL
-                </FormFeedback>
-              }
+              <ErrorMessage
+                errors={errors}
+                name="web"
+                render={({ message }) =>
+                  <FormFeedback invalid className="end-0">
+                    { message }
+                  </FormFeedback>
+                }
+              />
             </InputGroup>
           </Col>
         </Row>
