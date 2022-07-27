@@ -42,10 +42,13 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
   )
 }
 
-const schema2 = yup.array().of({
-  firstname: yup.string().required(),
-  lastname: yup.string().required(),
-}).required();
+const schema2 = yup.object().shape({
+  names: yup.array().of(yup.object().shape(
+    {
+      firstname: yup.string().required(),
+      lastname: yup.string().required(),
+    }))
+});
 
 const TestForm5 = () => {
   const { control, handleSubmit, formState: {errors} } = useForm({
@@ -68,8 +71,6 @@ const TestForm5 = () => {
     )
   }
 
-  console.log(errors)
-
   return (
     <>
       <Label for="firstname">
@@ -79,8 +80,8 @@ const TestForm5 = () => {
         <FormGroup>
           {
             fields.map((item, index) => (
-              <Row key={item.id} className="pt-2">
-                <Col sm={{size: 5}}>
+              <Row key={item.id} className="ps-0 ms-0">
+                <Col sm={{size: 5}} className="g-0">
                   <InputGroup>
                     <Controller
                       name={`names.${index}.firstname`}
@@ -88,7 +89,7 @@ const TestForm5 = () => {
                       render={ ({field}) =>
                         <Input
                           {...field}
-                          className={`form-control ${errors.names && errors.names.index && errors.names.index.firstname ? "is-invalid" : ''}`}
+                          className={`form-control ${errors.names && errors.names[index] && errors.names[index].firstname ? "is-invalid" : ''}`}
                         />
                       }
                     />
@@ -96,14 +97,14 @@ const TestForm5 = () => {
                       errors={errors}
                       name={`names.${index}.firstname`}
                       render={({ message }) =>
-                        <FormFeedback tooltip invalid className="end-0">
+                        <FormFeedback invalid className="end-0">
                           { message }
                         </FormFeedback>
                       }
                     />
                   </InputGroup>
                 </Col>
-                <Col sm={{size: 5}}>
+                <Col sm={{size: 5}} className="g-0">
                   <InputGroup>
                     <Controller
                       name={`names.${index}.lastname`}
@@ -111,7 +112,7 @@ const TestForm5 = () => {
                       render={ ({field}) =>
                         <Input
                           {...field}
-                          className={`${errors?.names?.index?.lastname ? "is-invalid" : ''}`}
+                          className={`${errors.names && errors.names[index] && errors.names[index].lastname ? "is-invalid" : ''}`}
                         />
                       }
                     />
@@ -119,7 +120,7 @@ const TestForm5 = () => {
                       errors={errors}
                       name={`names.${index}.lastname`}
                       render={({ message }) =>
-                        <FormFeedback tooltip invalid className="end-0">
+                        <FormFeedback invalid className="end-0">
                           { message }
                         </FormFeedback>
                       }
