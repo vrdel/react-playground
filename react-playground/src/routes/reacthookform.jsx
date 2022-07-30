@@ -19,7 +19,7 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '@hookform/error-message';
@@ -57,6 +57,29 @@ const TestForm5 = () => {
       names: [{firstname: 'Daniel', lastname: 'Vrcic'}]
     }
   })
+
+  const InputNames = ({control}) => {
+    const names = useWatch({control, name: "names"})
+
+    return (
+      names.map((name) =>
+        <>
+          <span className="font-monospace"><mark>
+            {
+              name['firstname']
+            }
+          </mark></span>
+          <mark>{' '}</mark>
+          <span className="font-monospace"><mark>
+            {
+              name['lastname']
+            }
+          </mark></span>
+          {', '}
+        </>
+      )
+    )
+  }
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -149,6 +172,8 @@ const TestForm5 = () => {
           </Row>
         </FormGroup>
       </Form>
+      <h5>Watched values:</h5>
+      <InputNames control={control}/>
     </>
   );
 }
@@ -561,7 +586,7 @@ const ReactHookForm = () => {
               <CardBody>
                 <CardTitle className="bg-secondary text-center text-white">
                   <p className="font-monospace">
-                    FieldArray
+                    FieldArray & usewatch
                   </p>
                 </CardTitle>
                 <TestForm5/>
