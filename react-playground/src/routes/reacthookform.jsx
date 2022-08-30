@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import DefaultPage from '../ui/defpage'
 import {
-  ButtonGroup,
   Button,
+  ButtonGroup,
   Card,
   CardBody,
   CardHeader,
@@ -13,11 +13,12 @@ import {
   FormGroup,
   Input,
   InputGroup,
-  Toast,
-  ToastHeader,
-  ToastBody,
   Label,
   Row,
+  Table,
+  Toast,
+  ToastBody,
+  ToastHeader,
 } from 'reactstrap'
 import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { toast } from 'react-toastify';
@@ -40,6 +41,58 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
       </ToastBody>
     </Toast>
   )
+}
+
+const TestForm6 = () => {
+
+  const data = new Array(
+    {
+      'name': 'service1', 'description': 'desc1'
+    },
+    {
+      'name': 'service2', 'description': 'desc2'
+    }
+  )
+
+  return (
+    <Row>
+      <Col>
+        <Table responsive hover size="sm">
+          <thead className="table-active align-middle text-center">
+            <tr>
+              <th>
+                Name of service
+              </th>
+              <th>
+                Description of service
+              </th>
+              <th>
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.map((entry, index) =>
+                <tr key={index}>
+                  <td>
+                    { entry['name'] }
+                  </td>
+                  <td>
+                    { entry['description'] }
+                  </td>
+                  <td>
+                    some_action
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </Table>
+      </Col>
+    </Row>
+  )
+
 }
 
 const schema2 = yup.object().shape({
@@ -586,10 +639,20 @@ const ReactHookForm = () => {
               <CardBody>
                 <CardTitle className="bg-secondary text-center text-white">
                   <p className="font-monospace">
-                    FieldArray & usewatch
+                    FieldArray & useWatch
                   </p>
                 </CardTitle>
                 <TestForm5/>
+              </CardBody>
+            </Col>
+            <Col sm="8">
+              <CardBody>
+                <CardTitle className="bg-secondary text-center text-white">
+                  <p className="font-monospace">
+                    FieldArray & Table
+                  </p>
+                </CardTitle>
+                <TestForm6/>
               </CardBody>
             </Col>
           </Row>
