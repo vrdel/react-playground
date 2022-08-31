@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DefaultPage from '../ui/defpage'
 import {
   Button,
@@ -44,20 +44,28 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
 }
 
 const TestForm6 = () => {
-  const data = new Array(
+  let data = new Array(
     {
       'name': 'service1', 'description': 'desc1'
     },
     {
       'name': 'service2', 'description': 'desc2'
+    },
+    {
+      'name': 'service3', 'description': 'desc3'
+    },
+    {
+      'name': 'service4', 'description': 'desc4'
     }
   )
 
-  const { control, handleSubmit, formState: {errors} } = useForm({
+  const { control, handleSubmit, setValue, formState: {errors} } = useForm({
     defaultValues: {
       servicetypes: data
     }
   })
+
+  const servicetypes = useWatch({control, name: "servicetypes"})
 
   const { fields, insert, remove } = useFieldArray({
     control,
@@ -136,9 +144,19 @@ const TestForm6 = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="text-center">
-          <Button className="mt-3" color="success" type="submit">
+        <Col className="position-relative text-center">
+          <Button className="mt-4 mb-3" color="success" type="submit">
             Submit
+          </Button>
+          <Button className="mb-2 btn-sm position-absolute bottom-50 end-0" color="secondary" onClick={() => {
+            setValue('servicetypes', servicetypes.slice(1, servicetypes.length))
+          }}>
+            Remove first
+          </Button>
+          <Button className="btn-sm position-absolute bottom-0 end-0" color="secondary" onClick={() => {
+            setValue('servicetypes', servicetypes.slice(0, servicetypes.length - 1))
+          }}>
+            Remove latest
           </Button>
         </Col>
       </Row>
