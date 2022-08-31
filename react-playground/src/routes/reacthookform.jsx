@@ -44,7 +44,6 @@ const ToastMsg = ({ data, isopen, setOpen }) => {
 }
 
 const TestForm6 = () => {
-
   const data = new Array(
     {
       'name': 'service1', 'description': 'desc1'
@@ -54,45 +53,97 @@ const TestForm6 = () => {
     }
   )
 
-  return (
-    <Row>
-      <Col>
-        <Table responsive hover size="sm">
-          <thead className="table-active align-middle text-center">
-            <tr>
-              <th>
-                Name of service
-              </th>
-              <th>
-                Description of service
-              </th>
-              <th>
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              data.map((entry, index) =>
-                <tr key={index}>
-                  <td>
-                    { entry['name'] }
-                  </td>
-                  <td>
-                    { entry['description'] }
-                  </td>
-                  <td>
-                    some_action
-                  </td>
-                </tr>
-              )
-            }
-          </tbody>
-        </Table>
-      </Col>
-    </Row>
-  )
+  const { control, handleSubmit, formState: {errors} } = useForm({
+    defaultValues: {
+      servicetypes: data
+    }
+  })
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "servicetypes"
+  })
+
+  const onSubmit = data => {
+    toast.success(
+      <p className="font-monospace">
+        { JSON.stringify(data, null, 2) }
+      </p>
+    )
+  }
+
+  return (
+    <Form onSubmit={ handleSubmit(onSubmit) } className="needs-validation">
+      <Row>
+        <Col>
+          <Table responsive hover size="sm">
+            <thead className="table-active align-middle text-center">
+              <tr>
+                <th>
+                  Name of service
+                </th>
+                <th>
+                  Description of service
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                fields.map((entry, index) =>
+                  <tr key={entry.id}>
+                    <td>
+                      <Controller
+                        name={`servicetypes.${index}.name`}
+                        control={control}
+                        render={ ({field}) =>
+                          <Input
+                            {...field}
+                            className='form-control'
+                          />
+                        }
+                      />
+                    </td>
+                    <td>
+                      <Controller
+                        name={`servicetypes.${index}.description`}
+                        control={control}
+                        render={ ({field}) =>
+                          <Input
+                            {...field}
+                            className='form-control'
+                          />
+                        }
+                      />
+                    </td>
+                    <td>
+                      <ButtonGroup size='sm'>
+                        <Button className="fw-bold" color="success" onClick={() => append({name: '', description: ''})}>
+                          +
+                        </Button>
+                        <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
+                          -
+                        </Button>
+                      </ButtonGroup>
+                    </td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="text-center">
+          <Button className="mt-3" color="success" type="submit">
+            Submit
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+  )
 }
 
 const schema2 = yup.object().shape({
