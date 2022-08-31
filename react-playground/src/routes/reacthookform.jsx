@@ -59,7 +59,7 @@ const TestForm6 = () => {
     }
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, insert, remove } = useFieldArray({
     control,
     name: "servicetypes"
   })
@@ -118,9 +118,9 @@ const TestForm6 = () => {
                         }
                       />
                     </td>
-                    <td>
+                    <td className="text-center align-middle">
                       <ButtonGroup size='sm'>
-                        <Button className="fw-bold" color="success" onClick={() => append({name: '', description: ''})}>
+                        <Button className="fw-bold" color="success" onClick={() => insert(index + 1, {name: '', description: ''})}>
                           +
                         </Button>
                         <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
