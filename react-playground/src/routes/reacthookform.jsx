@@ -59,11 +59,17 @@ const TestForm6 = () => {
     }
   )
 
+  const [initialData, setInitialData] = useState(undefined)
+
   const { control, handleSubmit, setValue, formState: {errors} } = useForm({
     defaultValues: {
       servicetypes: data
     }
   })
+
+  useEffect(() => {
+    setInitialData(data)
+  }, [])
 
   const servicetypes = useWatch({control, name: "servicetypes"})
 
@@ -145,16 +151,23 @@ const TestForm6 = () => {
       </Row>
       <Row>
         <Col className="position-relative text-center">
+          <Button className="ms-3 btn-sm position-absolute top-0 start-0" color="secondary" onClick={() => {
+            setValue('servicetypes', initialData)
+          }}>
+            Reset
+          </Button>
           <Button className="mt-4 mb-3" color="success" type="submit">
             Submit
           </Button>
           <Button className="mb-2 btn-sm position-absolute bottom-50 end-0" color="secondary" onClick={() => {
-            setValue('servicetypes', servicetypes.slice(1, servicetypes.length))
+            let newData = servicetypes.slice(1, servicetypes.length)
+            setValue('servicetypes', newData)
           }}>
             Remove first
           </Button>
           <Button className="btn-sm position-absolute bottom-0 end-0" color="secondary" onClick={() => {
-            setValue('servicetypes', servicetypes.slice(0, servicetypes.length - 1))
+            let newData = servicetypes.slice(0, servicetypes.length - 1)
+            setValue('servicetypes', newData)
           }}>
             Remove latest
           </Button>
