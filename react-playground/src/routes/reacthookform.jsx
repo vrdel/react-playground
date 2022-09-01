@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import DefaultPage from '../ui/defpage'
 import {
+  faSearch,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
   Button,
   ButtonGroup,
   Card,
@@ -94,6 +99,9 @@ const TestForm6 = () => {
             <thead className="table-active align-middle text-center">
               <tr>
                 <th>
+                  #
+                </th>
+                <th>
                   Name of service
                 </th>
                 <th>
@@ -105,9 +113,23 @@ const TestForm6 = () => {
               </tr>
             </thead>
             <tbody>
+              <tr style={{ background: '#ECECEC' }}>
+                <td className="align-middle text-center">
+                  <FontAwesomeIcon icon={faSearch}/>
+                </td>
+                <td className="align-middle text-center">
+                </td>
+                <td className="align-middle text-center">
+                </td>
+                <td className="align-middle text-center">
+                </td>
+              </tr>
               {
                 fields.map((entry, index) =>
                   <tr key={entry.id}>
+                    <td>
+                      {index + 1}
+                    </td>
                     <td>
                       <Controller
                         name={`servicetypes.${index}.name`}
