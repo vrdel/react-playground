@@ -68,7 +68,9 @@ const TestForm6 = () => {
 
   const { control, handleSubmit, setValue, formState: {errors} } = useForm({
     defaultValues: {
-      servicetypes: data
+      serviceTypes: data,
+      searchService: '',
+      searchDesc: ''
     }
   })
 
@@ -76,12 +78,15 @@ const TestForm6 = () => {
     setInitialData(data)
   }, [])
 
-  const servicetypes = useWatch({control, name: "servicetypes"})
+  const serviceTypes = useWatch({control, name: "serviceTypes"})
+  const searchService = useWatch({control, name: "searchService"})
+  const searchDesc = useWatch({control, name: "searchDesc"})
 
   const { fields, insert, remove } = useFieldArray({
     control,
-    name: "servicetypes"
+    name: "serviceTypes"
   })
+  let fieldsView = fields
 
   const onSubmit = data => {
     toast.success(
@@ -90,6 +95,12 @@ const TestForm6 = () => {
       </p>
     )
   }
+
+  if (searchService)
+    fieldsView = fields.filter(e => e.name.includes(searchService))
+
+  if (searchDesc)
+    fieldsView = fields.filter(e => e.name.includes(searchDesc))
 
   return (
     <Form onSubmit={ handleSubmit(onSubmit) } className="needs-validation">
@@ -118,21 +129,42 @@ const TestForm6 = () => {
                   <FontAwesomeIcon icon={faSearch}/>
                 </td>
                 <td className="align-middle text-center">
+                  <Controller
+                    name="searchService"
+                    control={control}
+                    render={ ({field}) =>
+                      <Input
+                        {...field}
+                        className='form-control'
+                        // onChange={(e) => field.onChange(searchHandler('searchService', e.target.value))}
+                      />
+                    }
+                  />
                 </td>
                 <td className="align-middle text-center">
+                  <Controller
+                    name="searchDesc"
+                    control={control}
+                    render={ ({field}) =>
+                      <Input
+                        {...field}
+                        className='form-control'
+                      />
+                    }
+                  />
                 </td>
                 <td className="align-middle text-center">
                 </td>
               </tr>
               {
-                fields.map((entry, index) =>
+                fieldsView.map((entry, index) =>
                   <tr key={entry.id}>
                     <td>
                       {index + 1}
                     </td>
                     <td>
                       <Controller
-                        name={`servicetypes.${index}.name`}
+                        name={`serviceTypes.${index}.name`}
                         control={control}
                         render={ ({field}) =>
                           <Input
@@ -144,7 +176,7 @@ const TestForm6 = () => {
                     </td>
                     <td>
                       <Controller
-                        name={`servicetypes.${index}.description`}
+                        name={`serviceTypes.${index}.description`}
                         control={control}
                         render={ ({field}) =>
                           <Input
@@ -174,7 +206,7 @@ const TestForm6 = () => {
       <Row>
         <Col className="position-relative text-center">
           <Button className="ms-3 btn-sm position-absolute top-0 start-0" color="secondary" onClick={() => {
-            setValue('servicetypes', initialData)
+            setValue('serviceTypes', initialData)
           }}>
             Reset
           </Button>
@@ -182,14 +214,14 @@ const TestForm6 = () => {
             Submit
           </Button>
           <Button className="mb-2 btn-sm position-absolute bottom-50 end-0" color="secondary" onClick={() => {
-            let newData = servicetypes.slice(1, servicetypes.length)
-            setValue('servicetypes', newData)
+            let newData = serviceTypes.slice(1, serviceTypes.length)
+            setValue('serviceTypes', newData)
           }}>
             Remove first
           </Button>
           <Button className="btn-sm position-absolute bottom-0 end-0" color="secondary" onClick={() => {
-            let newData = servicetypes.slice(0, servicetypes.length - 1)
-            setValue('servicetypes', newData)
+            let newData = serviceTypes.slice(0, serviceTypes.length - 1)
+            setValue('serviceTypes', newData)
           }}>
             Remove latest
           </Button>
