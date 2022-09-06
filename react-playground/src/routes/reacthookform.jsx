@@ -168,7 +168,7 @@ const TestForm6 = () => {
                         render={ ({field}) =>
                           <Input
                             {...field}
-                            className='form-control'
+                            className={ entry.isNew ? "fw-bold border border-success form-control" : "fw-bold form-control"}
                           />
                         }
                       />
@@ -180,14 +180,14 @@ const TestForm6 = () => {
                         render={ ({field}) =>
                           <Input
                             {...field}
-                            className='form-control'
+                            className={ entry.isNew ? "border border-success form-control" : "form-control"}
                           />
                         }
                       />
                     </td>
                     <td className="text-center align-middle">
                       <ButtonGroup size='sm'>
-                        <Button className="fw-bold" color="success" onClick={() => insert(index + 1, {name: '', description: ''})}>
+                        <Button className="fw-bold" color="success" onClick={() => insert(index + 1, {name: '', description: '', isNew: true})}>
                           +
                         </Button>
                         <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
