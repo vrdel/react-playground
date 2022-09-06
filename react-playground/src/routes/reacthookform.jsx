@@ -64,8 +64,6 @@ const TestForm6 = () => {
     }
   )
 
-  const [initialData, setInitialData] = useState(undefined)
-
   const { control, handleSubmit, setValue, formState: {errors} } = useForm({
     defaultValues: {
       serviceTypes: data,
@@ -73,10 +71,6 @@ const TestForm6 = () => {
       searchDesc: ''
     }
   })
-
-  useEffect(() => {
-    setInitialData(data)
-  }, [])
 
   const serviceTypes = useWatch({control, name: "serviceTypes"})
   const searchService = useWatch({control, name: "searchService"})
@@ -86,7 +80,12 @@ const TestForm6 = () => {
     control,
     name: "serviceTypes"
   })
-  let fieldsView = fields
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...serviceTypes[index]
+    }
+  })
 
   const onSubmit = data => {
     toast.success(
@@ -96,11 +95,12 @@ const TestForm6 = () => {
     )
   }
 
+  let fieldsView = controlledFields
   if (searchService)
-    fieldsView = fields.filter(e => e.name.includes(searchService))
+    fieldsView = controlledFields.filter(e => e.name.includes(searchService))
 
   if (searchDesc)
-    fieldsView = fields.filter(e => e.name.includes(searchDesc))
+    fieldsView = controlledFields.filter(e => e.name.includes(searchDesc))
 
   return (
     <Form onSubmit={ handleSubmit(onSubmit) } className="needs-validation">
@@ -136,7 +136,6 @@ const TestForm6 = () => {
                       <Input
                         {...field}
                         className='form-control'
-                        // onChange={(e) => field.onChange(searchHandler('searchService', e.target.value))}
                       />
                     }
                   />
@@ -206,7 +205,7 @@ const TestForm6 = () => {
       <Row>
         <Col className="position-relative text-center">
           <Button className="ms-3 btn-sm position-absolute top-0 start-0" color="secondary" onClick={() => {
-            setValue('serviceTypes', initialData)
+            setValue('serviceTypes', data)
           }}>
             Reset
           </Button>
