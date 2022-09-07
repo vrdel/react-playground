@@ -335,8 +335,15 @@ const TestForm5 = () => {
     setValue("names", _.concat(valuesLeft, valuesRight))
   }
 
-  const onRemove = (index) => {
-    remove(index)
+  const onRemove = (index, id) => {
+    // comment regular remove, instead try "remove by id"
+    // remove(index)
+    let target = _.findIndex(fields, (e) => e.id === id)
+    let values = getValues("names")
+    let valuesLeft = _.take(values, target + 1)
+    let valuesRight = _.takeRight(values, values.length - target - 1)
+    valuesLeft.pop()
+    setValue("names", _.concat(valuesLeft, valuesRight))
 
     let array = [...checkedFields]
     array.splice(index, 1)
