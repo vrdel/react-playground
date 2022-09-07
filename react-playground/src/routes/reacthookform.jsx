@@ -468,7 +468,7 @@ const TestForm5 = () => {
               <Button className="mt-3" color="success" type="submit">
                 Submit
               </Button>
-              <Button className="mt-3 ms-2" color="secondary" onClick={() => onDeleteSelected()} disabled={!checkedFields.includes(true)}>
+              <Button className="mt-3 ms-2" color="secondary" onClick={() => onDeleteSelected()} disabled={!_.valuesIn(checkedFieldIds).includes(true)}>
                 Delete selected
               </Button>
             </Col>
