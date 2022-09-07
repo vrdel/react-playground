@@ -290,8 +290,7 @@ const TestForm5 = () => {
     )
   }
 
-
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, insert, remove } = useFieldArray({
     control,
     name: "names",
   });
@@ -322,6 +321,18 @@ const TestForm5 = () => {
     let array = [...checkedFields]
     array.push(false)
     setCheckFields(array)
+
+  }
+
+  const onInsert = (index, idprev, data) => {
+    // comment regular insert, instead try "insert by id"
+    // insert(index, data)
+    let target = _.findIndex(fields, (e) => e.id === idprev)
+    let values = getValues("names")
+    let valuesLeft = _.take(values, target + 1)
+    let valuesRight = _.takeRight(values, values.length - target - 1)
+    valuesLeft.push({...data, id: fields[target].id})
+    setValue("names", _.concat(valuesLeft, valuesRight))
   }
 
   const onRemove = (index) => {
@@ -429,13 +440,17 @@ const TestForm5 = () => {
                       -
                     </Button>
                     {
-                      index + 1 === fields.length ?
-                        <Button className="fw-bold" color="success" onClick={() => onAdd({firstname: '', lastname: ''})}>
-                          +
-                        </Button>
-                      :
-                        ''
+                      // append replaced with insert
+                      //index + 1 === fields.length ?
+                        //<Button className="fw-bold" color="success" onClick={() => onAdd({firstname: '', lastname: ''})}>
+                          //+
+                        //</Button>
+                      //:
+                        //''
                     }
+                    <Button className="fw-bold" color="success" onClick={() => onInsert(index + 1, item.id, {firstname: '', lastname: ''})}>
+                      +
+                    </Button>
                   </ButtonGroup>
                 </Col>
               </Row>
