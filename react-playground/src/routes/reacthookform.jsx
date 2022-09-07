@@ -259,7 +259,10 @@ const TestForm5 = () => {
   const { control, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(schema2),
     defaultValues: {
-      names: [{firstname: 'Daniel', lastname: 'Vrcic'}]
+      names: [
+        {firstname: 'Daniel', lastname: 'Vrcic'},
+        {firstname: 'Joso', lastname: 'Dzekson'}
+      ]
     }
   })
 
@@ -286,10 +289,27 @@ const TestForm5 = () => {
     )
   }
 
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "names",
   });
+
+  const [checkedFields, setCheckFields] = useState(Array(fields.length).fill(false))
+
+  const onCheck = index => {
+    let array = [...checkedFields]
+    array[index] = !array[index]
+    setCheckFields(array)
+  }
+
+  const onAdd = (append, data) => {
+    append(data)
+  }
+
+  const onRemove = (remove, index) => {
+    remove(index)
+  }
 
   const onSubmit = data => {
     toast.success(
@@ -309,7 +329,10 @@ const TestForm5 = () => {
           {
             fields.map((item, index) => (
               <Row key={item.id} className="ps-0 ms-0">
-                <Col sm={{size: 5}} className="g-0">
+                <Col sm={{size: 1}} className="d-flex flex-row-reverse">
+                  <Input type="checkbox" className="fw-bold" onClick={() => onCheck(index)}/>
+                </Col>
+                <Col sm={{size: 4}} className="g-0">
                   <InputGroup>
                     <Controller
                       name={`names.${index}.firstname`}
@@ -332,7 +355,7 @@ const TestForm5 = () => {
                     />
                   </InputGroup>
                 </Col>
-                <Col sm={{size: 5}} className="g-0">
+                <Col sm={{size: 4}} className="g-0">
                   <InputGroup>
                     <Controller
                       name={`names.${index}.lastname`}
@@ -355,14 +378,19 @@ const TestForm5 = () => {
                     />
                   </InputGroup>
                 </Col>
-                <Col sm={{size: 2}} className="d-flex align-items-center">
+                <Col sm={{size: 1}} className="d-flex align-items-center">
                   <ButtonGroup size='sm'>
-                    <Button className="fw-bold" color="success" onClick={() => append({firstname: '', lastname: ''})}>
-                      +
-                    </Button>
-                    <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
+                    <Button className="ms-2 fw-bold" color="danger" onClick={() => onRemove(remove, index)}>
                       -
                     </Button>
+                    {
+                      index + 1 === fields.length ?
+                        <Button className="fw-bold" color="success" onClick={() => onAdd(append, {firstname: '', lastname: ''})}>
+                          +
+                        </Button>
+                      :
+                        ''
+                    }
                   </ButtonGroup>
                 </Col>
               </Row>
@@ -372,6 +400,9 @@ const TestForm5 = () => {
             <Col className="text-center">
               <Button className="mt-3" color="success" type="submit">
                 Submit
+              </Button>
+              <Button className="mt-3 ms-2" color="secondary" type="submit">
+                Delete selected
               </Button>
             </Col>
           </Row>
