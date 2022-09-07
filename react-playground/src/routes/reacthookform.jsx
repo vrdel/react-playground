@@ -87,6 +87,14 @@ const TestForm6 = () => {
     }
   })
 
+  const [countAdded, setCountAdded] = useState(0)
+  const [countRemoved, setCountRemoved] = useState(0)
+  const [countChanged, setCountChanged] = useState(-1)
+
+  useEffect(() => {
+    setCountChanged(countChanged + 1)
+  }, [fields])
+
   const onSubmit = data => {
     toast.success(
       <p className="font-monospace">
@@ -187,10 +195,16 @@ const TestForm6 = () => {
                     </td>
                     <td className="text-center align-middle">
                       <ButtonGroup size='sm'>
-                        <Button className="fw-bold" color="success" onClick={() => insert(index + 1, {name: '', description: '', isNew: true})}>
+                        <Button className="fw-bold" color="success" onClick={() => {
+                          insert(index + 1, {name: '', description: '', isNew: true})
+                          setCountAdded(countAdded + 1)
+                        }}>
                           +
                         </Button>
-                        <Button className="fw-bold" color="danger" onClick={() => remove(index)}>
+                        <Button className="fw-bold" color="danger" onClick={() => {
+                          remove(index)
+                          setCountRemoved(countRemoved + 1)
+                        }}>
                           -
                         </Button>
                       </ButtonGroup>
@@ -209,6 +223,9 @@ const TestForm6 = () => {
           }}>
             Reset
           </Button>
+          <div className="ms-3 mt-2 position-absolute top-50 start-0">
+            Added: {countAdded}, Removed: {countRemoved}, Changed: {countChanged}
+          </div>
           <Button className="mt-4 mb-3" color="success" type="submit">
             Submit
           </Button>
