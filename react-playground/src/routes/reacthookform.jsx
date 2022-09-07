@@ -327,13 +327,10 @@ const TestForm5 = () => {
 
     checkedFields.forEach((e, i) => {
       if (e) {
-        if (i > 0)
-          ind = i - nrem
-        else
-          ind = 0
+        ind = i > 0 ? i - nrem : 0
         values.splice(ind, 1)
+        array.splice(ind, 1)
         nrem += 1
-        array.splice(i, 1)
       }
     })
     setValue("names", values)
