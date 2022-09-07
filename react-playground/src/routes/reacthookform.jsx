@@ -401,7 +401,7 @@ const TestForm5 = () => {
               <Button className="mt-3" color="success" type="submit">
                 Submit
               </Button>
-              <Button className="mt-3 ms-2" color="secondary" type="submit">
+              <Button className="mt-3 ms-2" color="secondary" type="submit" disabled={!checkedFields.includes(true)}>
                 Delete selected
               </Button>
             </Col>
