@@ -29,6 +29,7 @@ import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '@hookform/error-message';
+import _ from "lodash";
 import * as yup from "yup";
 
 
@@ -296,11 +297,21 @@ const TestForm5 = () => {
   });
 
   const [checkedFields, setCheckFields] = useState(Array(fields.length).fill(false))
+  const [checkedFieldIds, setCheckFieldIds] = useState(
+    _.fromPairs(fields.map(e => [e.id, false]))
+  )
 
-  const onCheck = (index) => {
+  useEffect(() => {
+     setCheckFieldIds(_.fromPairs(fields.map(e => [e.id, false])))
+  }, [fields])
+
+  const onCheck = (index, id) => {
     let array = [...checkedFields]
     array[index] = !array[index]
     setCheckFields(array)
+
+    checkedFieldIds[id] = !checkedFieldIds[id]
+    setCheckFieldIds(checkedFieldIds)
   }
 
   const onAdd = (data) => {
@@ -320,21 +331,27 @@ const TestForm5 = () => {
   }
 
   const onDeleteSelected = () => {
-    let values = getValues("names")
-    let nrem = 0
-    let ind = undefined
-    let array = [...checkedFields]
+    // find values for removal from checked array
+    //let values = getValues("names")
+    //let nrem = 0
+    //let ind = undefined
+    //let array = [...checkedFields]
 
-    checkedFields.forEach((e, i) => {
-      if (e) {
-        ind = i > 0 ? i - nrem : 0
-        values.splice(ind, 1)
-        array.splice(ind, 1)
-        nrem += 1
-      }
-    })
-    setValue("names", values)
-    setCheckFields(array)
+    //checkedFields.forEach((e, i) => {
+      //if (e) {
+        //ind = i > 0 ? i - nrem : 0
+        //values.splice(ind, 1)
+        //array.splice(ind, 1)
+        //nrem += 1
+      //}
+    //})
+    //setValue("names", values)
+    //setCheckFields(array)
+
+    // find values for removal from checked map
+    let values = getValues("names").map((e, i) => Object({...e, id: fields[i].id}))
+    let filteredValues = values.filter(e => !checkedFieldIds[e.id])
+    setValue("names", filteredValues)
   }
 
   const onSubmit = data => {
@@ -356,7 +373,7 @@ const TestForm5 = () => {
             fields.map((item, index) => (
               <Row key={item.id} className="ps-0 ms-0">
                 <Col sm={{size: 1}} className="d-flex flex-row-reverse">
-                  <Input type="checkbox" className="fw-bold" onClick={() => onCheck(index)}/>
+                  <Input type="checkbox" className="fw-bold" onClick={() => onCheck(index, item.id)}/>
                 </Col>
                 <Col sm={{size: 4}} className="g-0">
                   <InputGroup>
@@ -406,7 +423,7 @@ const TestForm5 = () => {
                 </Col>
                 <Col sm={{size: 1}} className="d-flex align-items-center">
                   <ButtonGroup size='sm'>
-                    <Button className="ms-2 fw-bold" color="danger" onClick={() => onRemove(index)}>
+                    <Button className="ms-2 fw-bold" color="danger" onClick={() => onRemove(index, item.id)}>
                       -
                     </Button>
                     {
