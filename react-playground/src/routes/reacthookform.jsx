@@ -302,7 +302,9 @@ const TestForm5 = () => {
   )
 
   useEffect(() => {
-     setCheckFieldIds(_.fromPairs(fields.map(e => [e.id, false])))
+    setCheckFieldIds(_.fromPairs(
+      fields.map(e => [e.id, checkedFieldIds[e.id] ? true : false]))
+    )
   }, [fields])
 
   const onCheck = (index, id) => {
