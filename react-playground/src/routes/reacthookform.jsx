@@ -256,7 +256,7 @@ const schema2 = yup.object().shape({
 });
 
 const TestForm5 = () => {
-  const { control, handleSubmit, formState: {errors} } = useForm({
+  const { control, getValues, setValue, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(schema2),
     defaultValues: {
       names: [
@@ -297,18 +297,47 @@ const TestForm5 = () => {
 
   const [checkedFields, setCheckFields] = useState(Array(fields.length).fill(false))
 
-  const onCheck = index => {
+  const onCheck = (index) => {
     let array = [...checkedFields]
     array[index] = !array[index]
     setCheckFields(array)
   }
 
-  const onAdd = (append, data) => {
+  const onAdd = (data) => {
     append(data)
+
+    let array = [...checkedFields]
+    array.push(false)
+    setCheckFields(array)
   }
 
-  const onRemove = (remove, index) => {
+  const onRemove = (index) => {
     remove(index)
+
+    let array = [...checkedFields]
+    array.splice(index, 1)
+    setCheckFields(array)
+  }
+
+  const onDeleteSelected = () => {
+    let values = getValues("names")
+    let nrem = 0
+    let ind = undefined
+    let array = [...checkedFields]
+
+    checkedFields.forEach((e, i) => {
+      if (e) {
+        if (i > 0)
+          ind = i - nrem
+        else
+          ind = 0
+        values.splice(ind, 1)
+        nrem += 1
+        array.splice(i, 1)
+      }
+    })
+    setValue("names", values)
+    setCheckFields(array)
   }
 
   const onSubmit = data => {
@@ -380,12 +409,12 @@ const TestForm5 = () => {
                 </Col>
                 <Col sm={{size: 1}} className="d-flex align-items-center">
                   <ButtonGroup size='sm'>
-                    <Button className="ms-2 fw-bold" color="danger" onClick={() => onRemove(remove, index)}>
+                    <Button className="ms-2 fw-bold" color="danger" onClick={() => onRemove(index)}>
                       -
                     </Button>
                     {
                       index + 1 === fields.length ?
-                        <Button className="fw-bold" color="success" onClick={() => onAdd(append, {firstname: '', lastname: ''})}>
+                        <Button className="fw-bold" color="success" onClick={() => onAdd({firstname: '', lastname: ''})}>
                           +
                         </Button>
                       :
@@ -401,7 +430,7 @@ const TestForm5 = () => {
               <Button className="mt-3" color="success" type="submit">
                 Submit
               </Button>
-              <Button className="mt-3 ms-2" color="secondary" type="submit" disabled={!checkedFields.includes(true)}>
+              <Button className="mt-3 ms-2" color="secondary" onClick={() => onDeleteSelected()} disabled={!checkedFields.includes(true)}>
                 Delete selected
               </Button>
             </Col>
